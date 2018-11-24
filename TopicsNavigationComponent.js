@@ -1,22 +1,25 @@
 import * as htmlConverter from './HtmlToElementConverter.js';
+import { BaseComponent } from './BaseComponent.js';
 
-export class TopicsNavigationComponent {
+export class TopicsNavigationComponent extends BaseComponent {
     constructor(targetElementId, topics, onTopicSelected){
-        this.targetElementId = targetElementId;
+        super(targetElementId);
         this.onTopicSelected = onTopicSelected;
         this.topicsNames = new Set(topics);
     }
 
     initializeTopics() {
-        const topicsList = document.getElementById(this.targetElementId);
-        topicsList.innerHTML = '';
+        const topicsContainer = document.getElementById(this.targetElementId);
+        topicsContainer.innerHTML = '';
+        const topicsList = htmlConverter.htmlToElement('<div class="list-group"></div>');
+        topicsContainer.appendChild(topicsList);
         for (let topicName of this.topicsNames) {
             let listItem = htmlConverter.htmlToElement(`
                 <a href="#" id="${topicName}" class="list-group-item list-group-item-action">
                     ${topicName}
                 </a>`);
             listItem.addEventListener('click', () => this.onTopicClick(topicName));
-            topicsList.appendChild(listItem);
+            topicsContainer.appendChild(listItem);
         }
     }
 
