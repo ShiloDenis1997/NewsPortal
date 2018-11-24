@@ -1,24 +1,19 @@
+import {TopicsNavigationComponent} from './TopicsNavigationComponent.js';
+import * as htmlConverter from './HtmlToElementConverter.js';
+
+var topicsComponent;
+
+window.addEventListener('load', initLoad);
+
 function initLoad() {
-    initializeTopics();
+    topicsComponent = new TopicsNavigationComponent('topicsList');
+    topicsComponent.initializeTopics();
     setActiveTopic('Business');
     displayNews(activeTopic);
     console.log('inited');
 }
 
 var activeTopic;
-
-function initializeTopics() {
-    const topicsList = document.getElementById('topicsList');
-    topicsList.innerHTML = '';
-    const topicsNames = new Set(['Business', 'Entertainment', 'General', 'Health', 'Science', 'Sports', 'Technology']);
-    for (let topicName of topicsNames) {
-        let listItem = htmlToElement(`
-            <a href="#" id="${topicName}" class="list-group-item list-group-item-action" onclick="onTopicClick('${topicName}')">
-                ${topicName}
-            </a>`);
-        topicsList.appendChild(listItem);
-    }
-}
 
 function onTopicClick(topicName) {
     setActiveTopic(topicName);
@@ -38,16 +33,10 @@ function setActiveTopic(topicName) {
     newActiveTopic.setAttribute('class', 'list-group-item list-group-item-action active');
 }
 
-function htmlToElement(html) {
-    let template = document.createElement('template');
-    template.innerHTML = html;
-    return template.content.firstElementChild;
-}
-
 function loadElement(elementId) {
     let element = document.getElementById(elementId);
     element.innerHTML = '';
-    element.appendChild(htmlToElement('<div class="loader"></div>'));
+    element.appendChild(htmlConverter.htmlToElement('<div class="loader"></div>'));
 }
 
 function displayNews(topicName) {
@@ -58,7 +47,7 @@ function displayNews(topicName) {
         articlesList.innerHTML = '';
         for (let i in articles) {
             let article = articles[i];
-            let card = htmlToElement(`
+            let card = htmlConverter.htmlToElement(`
                     <div class="card news-item">
                         <div class="card-header">
                             <h5>${article.title}</h5>
@@ -77,8 +66,8 @@ function displayNews(topicName) {
 
 var apiKey = 'ad1f839e3b024bf89bbe346e478fd085';
 
-function loadNews(topicName) {
-    let url = `https://newsapi.org/v2/everything?q=${topicName}&apiKey=${apiKey}`;
+function loadNews(topicName, page=1, pageSize=10) {
+    let url = `https://newsapi.org/v2/everything?q=${topicName}&apiKey=${apiKey}&page=${page}&pageSize=${pageSize}`;
     return fetch(url)
         .then(r => r.json())
         .catch(reason => console.error(reason));
