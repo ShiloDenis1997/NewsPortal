@@ -1,4 +1,5 @@
 import {TopicsNavigationComponent} from './TopicsNavigationComponent.js';
+import * as loader from './Loader.js';
 import * as htmlConverter from './HtmlToElementConverter.js';
 
 var topicsComponent;
@@ -13,14 +14,8 @@ function initLoad() {
     console.log('inited');
 }
 
-function loadElement(elementId) {
-    let element = document.getElementById(elementId);
-    element.innerHTML = '';
-    element.appendChild(htmlConverter.htmlToElement('<div class="loader"></div>'));
-}
-
 function displayNews(topicName) {
-    loadElement('newsList');
+    loader.loadElement('newsList');
     loadNews(topicName).then(news => {
         let articles = news.articles;
         let articlesList = document.getElementById('newsList');
