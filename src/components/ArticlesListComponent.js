@@ -7,7 +7,7 @@ export class ArticlesListComponent extends BaseComponent {
     }
 
     displayArtiles(articles) {
-        let articlesList = document.getElementById(this.targetElementId);
+        const articlesList = this.getTargetElement();
         articlesList.innerHTML = '';
         for (let i in articles) {
             let article = articles[i];

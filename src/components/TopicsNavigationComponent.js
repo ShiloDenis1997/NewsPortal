@@ -2,14 +2,14 @@ import * as htmlConverter from '../HtmlToElementConverter.js';
 import { BaseComponent } from './BaseComponent.js';
 
 export class TopicsNavigationComponent extends BaseComponent {
-    constructor(targetElementId, topics, onTopicSelected){
+    constructor(targetElementId, topics, onTopicSelected) {
         super(targetElementId);
         this.onTopicSelected = onTopicSelected;
         this.topicsNames = new Set(topics);
     }
 
     initializeTopics() {
-        const topicsContainer = document.getElementById(this.targetElementId);
+        const topicsContainer = this.getTargetElement();
         topicsContainer.innerHTML = '';
         const topicsList = htmlConverter.htmlToElement('<div class="list-group"></div>');
         topicsContainer.appendChild(topicsList);
@@ -25,7 +25,9 @@ export class TopicsNavigationComponent extends BaseComponent {
 
     onTopicClick(topicName) {
         this.setActiveTopic(topicName);
-        this.onTopicSelected(topicName);
+        if (this.onTopicSelected) {
+            this.onTopicSelected(topicName);
+        }
     }
 
     setActiveTopic(topicName) {
@@ -36,7 +38,7 @@ export class TopicsNavigationComponent extends BaseComponent {
             currentActiveTopic.setAttribute('class', 'list-group-item list-group-item-action');
             this.activeTopic = topicName;
         }
-    
+
         let newActiveTopic = document.getElementById(this.activeTopic);
         newActiveTopic.setAttribute('class', 'list-group-item list-group-item-action active');
     }
