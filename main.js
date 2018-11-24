@@ -8,11 +8,14 @@ import * as loader from './src/Loader.js';
 var topics = ['Business', 'Entertainment', 'General', 'Health', 'Science', 'Sports', 'Technology'];
 var topicsComponent = new TopicsNavigationComponent('topicsList', topics, topicSelected);
 var articlesListComponent = new ArticlesListComponent('newsList');
-var topPaginationComponent = new PaginationComponent('topPagination');
-var bottomPaginationComponent = new PaginationComponent('bottomPagination');
+var topPaginationComponent = new PaginationComponent('topPagination', onPageSelected);
+var bottomPaginationComponent = new PaginationComponent('bottomPagination', onPageSelected);
 var newsService = new NewsService();
 
 window.addEventListener('load', initLoad);
+
+var currentTopicName;
+var pageSize = 10;
 
 function initLoad() {
     topicsComponent.initializeTopics();
@@ -26,9 +29,17 @@ function topicSelected(topicName) {
 
 function displayNews(topicName, pageIndex) {
     loader.loadElement('newsList');
-    newsService.loadNews(topicName).then(news => {
+    newsService.loadNews(topicName, pageIndex, pageSize).then(news => {
         articlesListComponent.displayArtiles(news.articles);
-        topPaginationComponent.displayPagination(pageIndex, 10, news.totalResults);
-        bottomPaginationComponent.displayPagination(pageIndex, 10, news.totalResults);
+        applyPagination(pageIndex, pageSize, news.totalResults);
     }).catch(error => console.log(error));
+}
+
+function onPageSelected(pageIndex) {
+    displayNews(topicsComponent.ActiveTopic, pageIndex);
+}
+
+function applyPagination(pageIndex, pageSize, totalPagesCount) {
+    topPaginationComponent.displayPagination(pageIndex, pageSize, totalPagesCount);
+    bottomPaginationComponent.displayPagination(pageIndex, pageSize, totalPagesCount);
 }
