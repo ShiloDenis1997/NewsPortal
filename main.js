@@ -6,31 +6,11 @@ var topicsComponent;
 window.addEventListener('load', initLoad);
 
 function initLoad() {
-    topicsComponent = new TopicsNavigationComponent('topicsList');
+    topicsComponent = new TopicsNavigationComponent('topicsList', displayNews);
     topicsComponent.initializeTopics();
-    setActiveTopic('Business');
-    displayNews(activeTopic);
+    topicsComponent.setActiveTopic('Business');
+    displayNews(topicsComponent.ActiveTopic);
     console.log('inited');
-}
-
-var activeTopic;
-
-function onTopicClick(topicName) {
-    setActiveTopic(topicName);
-    displayNews(topicName);
-}
-
-function setActiveTopic(topicName) {
-    if (!activeTopic) {
-        activeTopic = topicName;
-    } else {
-        let currentActiveTopic = document.getElementById(activeTopic);
-        currentActiveTopic.setAttribute('class', 'list-group-item list-group-item-action');
-        activeTopic = topicName;
-    }
-
-    let newActiveTopic = document.getElementById(activeTopic);
-    newActiveTopic.setAttribute('class', 'list-group-item list-group-item-action active');
 }
 
 function loadElement(elementId) {
