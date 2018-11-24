@@ -1,10 +1,10 @@
 import * as htmlConverter from './HtmlToElementConverter.js';
 
 export class TopicsNavigationComponent {
-    constructor(targetElementId, onTopicSelected){
+    constructor(targetElementId, topics, onTopicSelected){
         this.targetElementId = targetElementId;
         this.onTopicSelected = onTopicSelected;
-        this.topicsNames = new Set(['Business', 'Entertainment', 'General', 'Health', 'Science', 'Sports', 'Technology']);
+        this.topicsNames = new Set(topics);
     }
 
     initializeTopics() {

@@ -1,22 +1,23 @@
-import {TopicsNavigationComponent} from './TopicsNavigationComponent.js';
+import { TopicsNavigationComponent } from './TopicsNavigationComponent.js';
+import { NewsService } from './NewsService.js';
 import * as loader from './Loader.js';
 import * as htmlConverter from './HtmlToElementConverter.js';
 
-var topicsComponent;
+var topics = ['Business', 'Entertainment', 'General', 'Health', 'Science', 'Sports', 'Technology'];
+var topicsComponent = new TopicsNavigationComponent('topicsList', topics, displayNews);
+var newsService = new NewsService();
 
 window.addEventListener('load', initLoad);
 
 function initLoad() {
-    topicsComponent = new TopicsNavigationComponent('topicsList', displayNews);
     topicsComponent.initializeTopics();
     topicsComponent.setActiveTopic('Business');
     displayNews(topicsComponent.ActiveTopic);
-    console.log('inited');
 }
 
 function displayNews(topicName) {
     loader.loadElement('newsList');
-    loadNews(topicName).then(news => {
+    newsService.loadNews(topicName).then(news => {
         let articles = news.articles;
         let articlesList = document.getElementById('newsList');
         articlesList.innerHTML = '';
@@ -37,13 +38,4 @@ function displayNews(topicName) {
             articlesList.appendChild(card);
         }
     }).catch(error => console.log(error));
-}
-
-var apiKey = 'ad1f839e3b024bf89bbe346e478fd085';
-
-function loadNews(topicName, page=1, pageSize=10) {
-    let url = `https://newsapi.org/v2/everything?q=${topicName}&apiKey=${apiKey}&page=${page}&pageSize=${pageSize}`;
-    return fetch(url)
-        .then(r => r.json())
-        .catch(reason => console.error(reason));
 }
