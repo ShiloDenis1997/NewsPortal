@@ -1,5 +1,5 @@
 import { BaseComponent } from './BaseComponent.js';
-import * as htmlConverter from './HtmlToElementConverter.js';
+import * as htmlConverter from '../HtmlToElementConverter.js';
 
 export class ArticlesListComponent extends BaseComponent {
     constructor(targetElementId) {

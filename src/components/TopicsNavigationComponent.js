@@ -1,4 +1,4 @@
-import * as htmlConverter from './HtmlToElementConverter.js';
+import * as htmlConverter from '../HtmlToElementConverter.js';
 import { BaseComponent } from './BaseComponent.js';
 
 export class TopicsNavigationComponent extends BaseComponent {
