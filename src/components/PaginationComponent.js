@@ -1,7 +1,11 @@
 import { BaseComponent } from './BaseComponent.js';
 import * as htmlConverter from '../HtmlToElementConverter.js';
 
+const PAGE_ITEM_ACTIVE = 'page-item active';
+const PAGE_ITEM_DISABLED = 'page-item disabled';
+
 export class PaginationComponent extends BaseComponent {
+
     constructor(targetElementId, onPageSelected, showPagesCount = 4) {
         super(targetElementId);
         this.onPageSelected = onPageSelected;
@@ -22,30 +26,43 @@ export class PaginationComponent extends BaseComponent {
         paginationContainer.innerHTML = '';
         const paginationList = htmlConverter.htmlToElement(`<ul class="pagination"></ul>`);
         paginationContainer.appendChild(paginationList);
+        this.appendPreviousButton(paginationList);
+        this.appendIndexButtons(paginationList);
+        this.appendNextButton(paginationList);
+    }
+
+    appendPreviousButton(paginationList) {
         const previousButton = this.createPageItem('Previous');
         previousButton.addEventListener('click', () => this.previousButtonClick());
         if (this.pageIndex === 1) {
-            previousButton.setAttribute('class', 'page-item disabled');
+            previousButton.setAttribute('class', PAGE_ITEM_DISABLED);
         }
         paginationList.appendChild(previousButton);
+    }
+
+    appendIndexButtons(paginationList) {
         let indexInterval = this.countIndexInterval();
         for (let i = indexInterval.leftIndex; i <= indexInterval.rightIndex; i++) {
             const pageItem = this.createPageItem(`${i}`);
             pageItem.addEventListener('click', () => this.pageButtonClick(i));
             if (i === this.pageIndex) {
-                pageItem.setAttribute('class', 'page-item active');
+                pageItem.setAttribute('class', PAGE_ITEM_ACTIVE);
             }
             paginationList.appendChild(pageItem);
         }
+    }
+
+    appendNextButton(paginationList) {
         const nextButton = this.createPageItem('Next');
         nextButton.addEventListener('click', () => this.nextButtonClick());
         if (this.pageIndex === this.totalPagesCount) {
-            nextButton.setAttribute('class', 'page-item disabled');
+            nextButton.setAttribute('class', PAGE_ITEM_DISABLED);
         }
         paginationList.appendChild(nextButton);
     }
 
     countIndexInterval() {
+        // clean up
         let leftShift = Math.floor(this.showPagesCount / 2);
         let leftIndex = this.pageIndex - leftShift;
         let rightIndex = leftIndex + this.showPagesCount;
