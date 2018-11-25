@@ -11,11 +11,13 @@ var articlesListComponent = new ArticlesListComponent('newsList');
 var topPaginationComponent = new PaginationComponent('topPagination', onPageSelected);
 var bottomPaginationComponent = new PaginationComponent('bottomPagination', onPageSelected);
 var newsService = new NewsService();
+var mainContentLoaderId = 'mainContentLoader';
 
 window.addEventListener('load', initLoad);
 
 var currentTopicName;
 var pageSize = 10;
+var isLoading = false;
 
 function initLoad() {
     topicsComponent.initializeTopics();
@@ -28,10 +30,11 @@ function topicSelected(topicName) {
 }
 
 function displayNews(topicName, pageIndex) {
-    loader.loadElement('newsList');
+    loader.startLoading(mainContentLoaderId);
     newsService.loadNews(topicName, pageIndex, pageSize).then(news => {
         articlesListComponent.displayArtiles(news.articles);
         applyPagination(pageIndex, pageSize, news.totalResults);
+        loader.stopLoading(mainContentLoaderId);
     }).catch(error => console.log(error));
 }
 

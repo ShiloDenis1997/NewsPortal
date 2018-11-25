@@ -6,7 +6,7 @@ const PAGE_ITEM_DISABLED = 'page-item disabled';
 
 export class PaginationComponent extends BaseComponent {
 
-    constructor(targetElementId, onPageSelected, showPagesCount = 4) {
+    constructor(targetElementId, onPageSelected, showPagesCount = 7) {
         super(targetElementId);
         this.onPageSelected = onPageSelected;
         this.showPagesCount = showPagesCount;
@@ -65,7 +65,7 @@ export class PaginationComponent extends BaseComponent {
         // clean up
         let leftShift = Math.floor(this.showPagesCount / 2);
         let leftIndex = this.pageIndex - leftShift;
-        let rightIndex = leftIndex + this.showPagesCount;
+        let rightIndex = leftIndex + this.showPagesCount - 1;
         if (leftIndex < 1) {
             rightIndex += 1 - leftIndex;
             leftIndex = 1;
@@ -85,7 +85,11 @@ export class PaginationComponent extends BaseComponent {
     }
 
     calculatePagesCount(totalItems, pageSize) {
-        return 10; // improve logic here
+        let pagesCount = Math.floor(totalItems / pageSize);
+        if (pagesCount * pageSize != totalItems) {
+            pagesCount++;
+        }
+        return pagesCount;
     }
 
     nextButtonClick() {
