@@ -1,9 +1,9 @@
-import { TopicsNavigationComponent } from './src/components/TopicsNavigationComponent.js';
-import { NewsService } from './src/services/NewsService.js';
-import { ArticlesListComponent } from './src/components/ArticlesListComponent.js';
-import { PaginationComponent } from './src/components/PaginationComponent.js';
+import { TopicsNavigationComponent } from './components/TopicsNavigationComponent.js';
+import { NewsService } from './services/NewsService.js';
+import { ArticlesListComponent } from './components/ArticlesListComponent.js';
+import { PaginationComponent } from './components/PaginationComponent.js';
 
-import * as loader from './src/Loader.js';
+import * as loader from './Loader.js';
 
 var topics = ['Business', 'Entertainment', 'General', 'Health', 'Science', 'Sports', 'Technology'];
 var topicsComponent = new TopicsNavigationComponent('topicsList', topics, topicSelected);
