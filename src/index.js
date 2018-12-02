@@ -2,8 +2,10 @@ import { TopicsNavigationComponent } from './components/TopicsNavigationComponen
 import { NewsService } from './services/NewsService.js';
 import { ArticlesListComponent } from './components/ArticlesListComponent.js';
 import { PaginationComponent } from './components/PaginationComponent.js';
-
 import * as loader from './Loader.js';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './main.css';
 
 var topics = ['Business', 'Entertainment', 'General', 'Health', 'Science', 'Sports', 'Technology'];
 var topicsComponent = new TopicsNavigationComponent('topicsList', topics, topicSelected);

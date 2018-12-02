@@ -1,0 +1,22 @@
+{
+  "name": "newsapiui",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "^4.0.0-alpha.6",
+    "popper.js": "^1.14.6",
+    "webpack": "^4.26.1"
+  },
+  "devDependencies": {
+    "css-loader": "^1.0.1",
+    "jquery": "^3.3.1",
+    "style-loader": "^0.23.1",
+    "webpack-cli": "^3.1.2"
+  },
+  "scripts": {
+    "build": "npx webpack --config webpack.config.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
