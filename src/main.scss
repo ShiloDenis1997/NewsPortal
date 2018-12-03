@@ -1,12 +1,19 @@
 @import "custom";
 @import "~bootstrap/scss/bootstrap";
-
 .page-header {
     text-align: center;
 }
 
 .news-item {
     margin-bottom: 20px;
+    .card-body {
+        .img-fluid {
+            width: 100%;
+        }
+        .card-article-content {
+            padding: 10px;
+        }
+    }
 }
 
 .navigation-list {

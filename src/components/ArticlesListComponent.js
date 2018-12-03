@@ -17,7 +17,12 @@ export class ArticlesListComponent extends BaseComponent {
                             <h5>${article.title}</h5>
                         </div>
                         <div class="card-body">
-                            ${article.content} 
+                            <div>
+                                <img class="img-fluid" src="${article.urlToImage}"/>
+                            </div>
+                            <div class="card-article-content">
+                                ${article.content} 
+                            </div>
                         </div>
                         <div class="card-footer">
                             <button class="btn btn-info float-right">Read more</button>
