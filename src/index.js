@@ -4,8 +4,7 @@ import { ArticlesListComponent } from './components/ArticlesListComponent.js';
 import { PaginationComponent } from './components/PaginationComponent.js';
 import * as loader from './Loader.js';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './main.css';
+import './main.scss';
 
 var topics = ['Business', 'Entertainment', 'General', 'Health', 'Science', 'Sports', 'Technology'];
 var topicsComponent = new TopicsNavigationComponent('topicsList', topics, topicSelected);

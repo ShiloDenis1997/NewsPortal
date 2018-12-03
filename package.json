@@ -9,13 +9,18 @@
     "webpack": "^4.26.1"
   },
   "devDependencies": {
+    "autoprefixer": "^9.4.0",
     "css-loader": "^1.0.1",
     "jquery": "^3.3.1",
+    "node-sass": "^4.10.0",
+    "postcss-loader": "^3.0.0",
+    "precss": "^4.0.0",
+    "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
     "webpack-cli": "^3.1.2"
   },
   "scripts": {
-    "build": "npx webpack --config webpack.config.js"
+    "build": "npx webpack"
   },
   "author": "",
   "license": "ISC"
