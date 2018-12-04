@@ -4,8 +4,8 @@ import { ArticlesListComponent } from './components/ArticlesListComponent.js';
 import { PaginationComponent } from './components/PaginationComponent.js';
 import * as loader from './Loader.js';
 
-import babelPolyfill from '@babel/polyfill';
-import "isomorphic-fetch";
+import '@babel/polyfill';
+import 'isomorphic-fetch';
 import './main.scss';
 
 var topics = ['Business', 'Entertainment', 'General', 'Health', 'Science', 'Sports', 'Technology'];
@@ -30,13 +30,19 @@ function topicSelected(topicName) {
     displayNews(topicName, 1);
 }
 
-function displayNews(topicName, pageIndex) {
-    loader.startLoading(mainContentLoaderId);
-    newsService.loadNews(topicName, pageIndex, pageSize).then(news => {
+async function displayNews(topicName, pageIndex) {
+    try {
+        loader.startLoading(mainContentLoaderId);
+        let news = await newsService.loadNews(topicName, pageIndex, pageSize);
         articlesListComponent.displayArtiles(news.articles);
         applyPagination(pageIndex, pageSize, news.totalResults);
+    }
+    catch (error) {
+        console.error(error);
+    }
+    finally {
         loader.stopLoading(mainContentLoaderId);
-    }).catch(error => console.log(error));
+    }
 }
 
 function onPageSelected(pageIndex) {
