@@ -6,6 +6,7 @@ import * as loader from './Loader.js';
 
 import './main.scss';
 
+console.log('loaded js');
 var topics = ['Business', 'Entertainment', 'General', 'Health', 'Science', 'Sports', 'Technology'];
 var topicsComponent = new TopicsNavigationComponent('topicsList', topics, topicSelected);
 var articlesListComponent = new ArticlesListComponent('newsList');
