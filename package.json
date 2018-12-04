@@ -3,13 +3,21 @@
   "version": "1.0.0",
   "description": "",
   "private": true,
+  "scripts": {
+    "build": "webpack --watch",
+    "start": "webpack-dev-server --open"
+  },
   "dependencies": {
+    "@babel/polyfill": "^7.0.0",
     "bootstrap": "^4.0.0-alpha.6",
+    "es6-promise": "^4.2.5",
+    "isomorphic-fetch": "^2.2.1",
     "popper.js": "^1.14.6",
     "webpack": "^4.26.1"
   },
   "devDependencies": {
     "@babel/core": "^7.2.0",
+    "@babel/plugin-transform-for-of": "^7.2.0",
     "@babel/preset-env": "^7.2.0",
     "autoprefixer": "^9.4.0",
     "babel-loader": "^8.0.4",
@@ -20,10 +28,8 @@
     "precss": "^4.0.0",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
-    "webpack-cli": "^3.1.2"
-  },
-  "scripts": {
-    "build": "npx webpack"
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.10"
   },
   "author": "",
   "license": "ISC"

@@ -1,7 +1,12 @@
 const path = require('path');
 
 module.exports = {
+    mode: 'development',
     entry: './src/index.js',
+    devtool: 'inline-source-map',
+    devServer: {
+        contentBase: './dist'
+    },
     output: {
         filename: 'main.js',
         path: path.resolve(__dirname, 'dist')
@@ -15,7 +20,7 @@ module.exports = {
                     {
                         loader: 'postcss-loader', // Run post css actions
                         options: {
-                            plugins: function() { // post css plugins, can be exported to postcss.config.js
+                            plugins: function () { // post css plugins, can be exported to postcss.config.js
                                 return [
                                     require('precss'),
                                     require('autoprefixer')
@@ -28,14 +33,11 @@ module.exports = {
                 ]
             },
             {
-                test: /\.m?js$/,
+                test: /\.js$/,
                 exclude: /(node_modules|bower_components)/,
-                use: {
-                    loader: 'babel-loader',
-                    options: {
-                        presets: ['@babel/preset-env']
-                    }
-                }
+                use: [{
+                    loader: "babel-loader"
+                } ]
             }
         ]
     }

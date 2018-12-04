@@ -4,9 +4,10 @@ import { ArticlesListComponent } from './components/ArticlesListComponent.js';
 import { PaginationComponent } from './components/PaginationComponent.js';
 import * as loader from './Loader.js';
 
+import babelPolyfill from '@babel/polyfill';
+import "isomorphic-fetch";
 import './main.scss';
 
-console.log('loaded js');
 var topics = ['Business', 'Entertainment', 'General', 'Health', 'Science', 'Sports', 'Technology'];
 var topicsComponent = new TopicsNavigationComponent('topicsList', topics, topicSelected);
 var articlesListComponent = new ArticlesListComponent('newsList');
@@ -17,9 +18,7 @@ var mainContentLoaderId = 'mainContentLoader';
 
 window.addEventListener('load', initLoad);
 
-var currentTopicName;
 var pageSize = 10;
-var isLoading = false;
 
 function initLoad() {
     topicsComponent.initializeTopics();
